@@ -41,7 +41,7 @@ OpenTelemetry support in SAP Cloud Logging needs to be enabled with a service in
     > }
     > ```
     > 
-    > When `span_passthrough` is set to `true`, spans are written to OpenSearch individually as they arrive. The service map is not populated and trace views may show incomplete traces.
+    > When `span_passthrough` is set to `true`, spans are written to OpenSearch individually as they arrive, without assembling complete traces. This can be useful if you know that root/parent spans will be missing from your telemetry \(e.g., when only a subset of services in a request path emit spans\), so trace assembly cannot succeed anyway. In this case it lowers ingestion latency at the cost of trace completeness. Furthermore, when enabled, the `otel-v1-apm-service-map` index is not populated, so the Service Map view in the Observability plugin of OpenSearch Dashboards will not function and the Trace Analytics view may show orphaned spans rather than complete trace trees.
 
 2.  Retrieve Endpoint and Certificates.
 

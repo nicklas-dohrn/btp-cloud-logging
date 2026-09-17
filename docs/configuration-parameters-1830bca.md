@@ -544,10 +544,12 @@ Boolean
 </td>
 <td valign="top">
 
-When set to true, spans are written to OpenSearch individually as they arrive, without assembling complete traces.
+When set to `true`, spans are written to OpenSearch individually as they arrive, without assembling complete traces. Defaults to `false`.
+
+This can be useful if you know that root/parent spans will be missing from your telemetry \(e.g., when only a subset of services in a request path emit spans\), so trace assembly cannot succeed anyway. In this case it lowers ingestion latency at the cost of trace completeness.
 
 > ### Note:  
-> When span\_passthrough is enabled, the service map \(otel-v1-apm-service-map index\) is not populated and trace views in OpenSearch Dashboards may show incomplete traces. Use this only when you need raw span data and do not require service map or full trace assembly.
+> When `span_passthrough` is enabled, the `otel-v1-apm-service-map` index is not populated, so the Service Map view in the Observability plugin of OpenSearch Dashboards will not function and the Trace Analytics view may show orphaned spans rather than complete trace trees.
 
 
 
